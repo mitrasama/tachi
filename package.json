@@ -1,0 +1,26 @@
+{
+  "name": "tachi",
+  "version": "1.0.0",
+  "description": "Nota Sochi",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "Abdul Aziz",
+  "license": "ISC",
+  "dependencies": {
+    "@ttskch/select2-bootstrap4-theme": "^1.2.2",
+    "bcrypt": "^3.0.6",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "dotenv": "^7.0.0",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "moment": "*",
+    "multer": "*",
+    "mysql": "*",
+    "password-hash": "^1.2.2"
+  }
+}

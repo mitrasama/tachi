@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SINOCHI | Sistem Informasi Nota Sochi</title>
+  
+  <script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css">
+
+  <link href="/images/favicon.png" rel="icon" type="image/x-icon" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/simple-sidebar.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading"><img src="/images/logo.png" width="200" height="40"></div>
+      <div class="list-group list-group-flush">
+        <a href="/admin" class="list-group-item list-group-item-action bg-light"><i class="fa fa-dashboard"></i>&nbsp;&nbsp;Dashboard</a>
+        <a href="/admin/produk" class="list-group-item list-group-item-action bg-light"><i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;Produk</a>
+        <a href="/admin/pelanggan" class="list-group-item list-group-item-action bg-light"><i class="fa fa-users"></i>&nbsp;&nbsp;Pelanggan</a>
+        <a href="/admin/nota" class="list-group-item list-group-item-action bg-secondary active"><i class="fa fa-file-archive-o"></i>&nbsp;&nbsp;Nota</a>
+        <a href="/admin/pengguna" class="list-group-item list-group-item-action bg-light"><i class="fa fa-gears"></i>&nbsp;&nbsp;Pengguna</a>
+        <a></a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-sm btn-outline-secondary" id="menu-toggle"><i class="fa fa-align-justify"></i></button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#Logout">Logout <i class="fa fa-sign-out"></i><span data-feather="log-out"></span></button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        
+      <br>
+      <!-- DataTables Example -->
+        <div class="card">
+          <div class="card-header">
+            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahProduk"><i class="fa fa-plus-square-o"></i> Add</button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              {{#if data}}
+              <table class="table table-sm table-bordered data" id="dataTable" width="100%" cellspacing="0">  
+                <thead>
+                  <tr bgcolor="#f8f9fa">
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Jenis</th>
+                    <th scope="col">Deskripsi</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Stok</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each data}}
+                  <tr>
+                    <td width="10" align="center" scope="row"></td>
+                    <td>&nbsp;{{nama}}</td>
+                    <td>&nbsp;{{jenis}}</td>
+                    <td>&nbsp;{{deskripsi}}</td>
+                    <td>&nbsp;{{harga}}</td>
+                    <td>&nbsp;{{stok}}</td>
+                    <td width="50">
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#stokProduk{{id_produk}}"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#ubahProduk{{id_produk}}"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusProduk{{id_produk}}"><i class="fa fa-trash-o"></i></button>                        
+                      </div>
+                      {{!-- Modal Ubah Produk --}}
+                        <div class="modal fade" id="ubahProduk{{id_produk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ubah Produk</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form method="post" action="/admin/ubahproduk">
+                                  <div class="form-group row">
+                                    <label for="colFormLabel" class="col-sm-3 col-form-label">Nama</label>
+                                    <div class="col-sm-9">
+                                      <input type="text" name="nama" class="form-control" id="colFormLabel" value="{{nama}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="colFormLabel" class="col-sm-3 col-form-label">Jenis</label>
+                                    <div class="col-sm-9">
+                                      <select name="jenis" id="inputState" class="form-control" required>
+                                        <option value="">Pilih...</option>
+                                        <option value="Baja">Baja</option>
+                                        <option value="Refill">Refill</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="colFormLabel" class="col-sm-3 col-form-label">Harga</label>
+                                    <div class="col-sm-9">
+                                      <input type="number" min="1" name="harga" class="form-control" id="colFormLabel" value="{{harga}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="colFormLabel" class="col-sm-3 col-form-label">Stok</label>
+                                    <div class="col-sm-9">
+                                      <input type="number" min="1" name="stok" class="form-control" id="colFormLabel" value="{{stok}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="colFormLabel" class="col-sm-3 col-form-label">Deskripsi</label>
+                                    <div class="col-sm-9">
+                                      <textarea name="deskripsi" class="form-control" id="validationTextarea">{{deskripsi}}</textarea>
+                                      <input type="hidden" name="id_produk" value="{{id_produk}}">
+                                    </div>
+                                  </div>            
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        {{!-- End Modal --}}
+
+                        {{!-- Modal Hapus --}}
+                        <div class="modal fade" id="hapusProduk{{id_produk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Hapus Produk</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Hapus produk '{{nama}}' ?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal <i class="fa fa-times"></i></button>
+                                <form action="/admin/hapusproduk" method="post">
+                                  <input type="hidden" name="id_produk" value="{{id_produk}}">
+                                  <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Ya</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {{!-- End Modal --}}
+
+                        {{!-- Modal Stok --}}
+                        <div class="modal fade" id="stokProduk{{id_produk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tambah Stok</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <form method="post" action="/admin/stokproduk">
+                                  <div class="form-group row">
+                                    <label for="colFormLabel" class="col-sm-3 col-form-label">Jumlah</label>
+                                    <div class="col-sm-9">
+                                      <input type="hidden" name="id_produk" value="{{id_produk}}">
+                                      <input type="hidden" name="stokawal" value="{{stok}}">
+                                      <input type="number" min="1" name="stok" class="form-control" id="colFormLabel" placeholder="-">
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {{!-- End Modal --}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+              {{else}}
+                No Projects
+            {{/if}}
+            </div>
+          </div>
+        </div>   
+
+      </div>    
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="tambahProduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="/admin/simpanproduk">
+              <div class="form-group row">
+                <label for="colFormLabel" class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                  <input type="text" name="nama" class="form-control" id="colFormLabel" placeholder="-" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="colFormLabel" class="col-sm-2 col-form-label">Jenis</label>
+                <div class="col-sm-10">
+                  <select name="jenis" id="inputState" class="form-control" required>
+                    <option value="">Pilih...</option>
+                    <option value="Baja">Baja</option>
+                    <option value="Refill">Refill</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="colFormLabel" class="col-sm-2 col-form-label">Harga</label>
+                <div class="col-sm-10">
+                  <input type="number" min="1" name="harga" class="form-control" id="colFormLabel" placeholder="-" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="colFormLabel" class="col-sm-2 col-form-label">Stok</label>
+                <div class="col-sm-10">
+                  <input type="number" min="1" name="stok" class="form-control" id="colFormLabel" placeholder="-" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="colFormLabel" class="col-sm-2 col-form-label">Deskripsi</label>
+                <div class="col-sm-10">
+                  <textarea name="deskripsi" class="form-control" id="validationTextarea" placeholder="-" required></textarea>
+                </div>
+              </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Simpan</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Modal Logout --}}
+    <!-- Modal -->
+    <div class="modal fade" id="Logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Anda yakin ingin keluar ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Tidak <i class="fa fa-times"></i></button>
+            <a href="/logout"><button class="btn btn-sm btn-primary">Ya <i class="fa fa-sign-out"></i></button></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="/js/jquery-slim.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.dataTables.js"></script>
+    <script src="/js/dataTables.bootstrap4.js"></script>
+    <script src="/js/datatables-demo.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.data').DataTable();
+    });
+  </script>
+
+</body>
+
+</html>
