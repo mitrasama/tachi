@@ -9,6 +9,7 @@ const multer = require('multer');
 const upload = multer({ dest: './public/images/tachi' });
 const port = require('./config').port
 var hbs = require('handlebars');
+var moment = require('moment');
 
 // Route Files
 const home = require('./routes/index');
@@ -61,6 +62,10 @@ hbs.registerHelper('eq', function () { // untuk if else pada halaman view
   return args.every(function (expression) {
       return args[0] === expression;
   });
+});
+hbs.registerHelper('formatTime', function (date, format) {
+  var mmnt = moment(date);
+  return mmnt.format(format);
 });
 
 // Connect Flash

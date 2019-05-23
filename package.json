@@ -18,7 +18,7 @@
     "express-handlebars": "*",
     "express-session": "*",
     "express-validator": "*",
-    "moment": "*",
+    "moment": "^2.24.0",
     "multer": "*",
     "mysql": "*",
     "password-hash": "^1.2.2"

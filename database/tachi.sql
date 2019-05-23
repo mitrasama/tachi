@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 21 Bulan Mei 2019 pada 11.35
+-- Waktu pembuatan: 23 Bulan Mei 2019 pada 10.41
 -- Versi server: 10.1.30-MariaDB
 -- Versi PHP: 7.2.2
 
@@ -29,13 +29,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_detail_nota` (
-  `id_nota` int(11) NOT NULL,
-  `id_produk` int(11) NOT NULL,
+  `no_nota` varchar(100) NOT NULL,
+  `nama_produk` varchar(255) NOT NULL,
   `jumlah_beli` int(20) NOT NULL,
   `harga_satuan` int(20) NOT NULL,
-  `diskon` int(20) NOT NULL,
-  `harga_total` int(20) NOT NULL
+  `diskon` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_detail_nota`
+--
+
+INSERT INTO `tbl_detail_nota` (`no_nota`, `nama_produk`, `jumlah_beli`, `harga_satuan`, `diskon`) VALUES
+('19051701', 'LPG 12 Kg Baja', 78, 500000, 0),
+('19051701', 'Bright Gas 12 Kg Baja', 67, 500000, 0),
+('19051701', 'LPG 12 Kg Refill', 23, 160000, 0),
+('19051701', 'Bright Gas 12 Kg Refill', 65, 160000, 0);
 
 -- --------------------------------------------------------
 
@@ -72,24 +81,16 @@ CREATE TABLE `tbl_nota` (
   `id_nota` int(11) NOT NULL,
   `no_nota` varchar(100) NOT NULL,
   `tanggal` date NOT NULL,
-  `id_pelanggan` varchar(11) NOT NULL,
-  `total_bayar` int(20) NOT NULL
+  `id_pelanggan` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tbl_nota`
 --
 
-INSERT INTO `tbl_nota` (`id_nota`, `no_nota`, `tanggal`, `id_pelanggan`, `total_bayar`) VALUES
-(1, '19051701', '2019-05-21', '1', 0),
-(2, '19051701', '2019-05-21', '1', 0),
-(3, '19051701', '2019-05-21', '1', 0),
-(4, '19051701', '2019-05-21', '1', 0),
-(5, '19051701', '2019-05-21', '1', 0),
-(6, '19051701', '2019-05-21', '1', 0),
-(7, '19051701', '2019-05-21', '1', 0),
-(8, '19051701', '2019-05-21', '1', 0),
-(9, '19051701', '2019-05-21', '2', 0);
+INSERT INTO `tbl_nota` (`id_nota`, `no_nota`, `tanggal`, `id_pelanggan`) VALUES
+(1, '19051701', '2019-05-23', '1'),
+(2, '19051702', '2019-05-24', '4');
 
 -- --------------------------------------------------------
 
@@ -148,12 +149,6 @@ INSERT INTO `tbl_produk` (`id_produk`, `nama`, `jenis`, `deskripsi`, `harga`, `s
 --
 
 --
--- Indeks untuk tabel `tbl_detail_nota`
---
-ALTER TABLE `tbl_detail_nota`
-  ADD PRIMARY KEY (`id_nota`);
-
---
 -- Indeks untuk tabel `tbl_login`
 --
 ALTER TABLE `tbl_login`
@@ -182,12 +177,6 @@ ALTER TABLE `tbl_produk`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_detail_nota`
---
-ALTER TABLE `tbl_detail_nota`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT untuk tabel `tbl_login`
 --
 ALTER TABLE `tbl_login`
@@ -197,7 +186,7 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT untuk tabel `tbl_nota`
 --
 ALTER TABLE `tbl_nota`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pelanggan`
