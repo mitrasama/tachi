@@ -9,6 +9,7 @@ const multer = require('multer');
 const upload = multer({ dest: './public/images/tachi' });
 const port = require('./config').port
 var hbs = require('handlebars');
+var NumeralHelper = require("handlebars.numeral");
 var moment = require('moment');
 
 // Route Files
@@ -67,6 +68,19 @@ hbs.registerHelper('formatTime', function (date, format) {
   var mmnt = moment(date);
   return mmnt.format(format);
 });
+hbs.registerHelper("math", function(lvalue, operator, rvalue, options) {
+  lvalue = parseFloat(lvalue);
+  rvalue = parseFloat(rvalue);
+      
+  return {
+      "+": lvalue + rvalue,
+      "-": lvalue - rvalue,
+      "*": lvalue * rvalue,
+      "/": lvalue / rvalue,
+      "%": lvalue % rvalue
+  }[operator];
+});
+NumeralHelper.registerHelpers(hbs);
 
 // Connect Flash
 app.use(flash());

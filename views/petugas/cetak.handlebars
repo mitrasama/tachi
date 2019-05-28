@@ -91,9 +91,9 @@
                     <td>&nbsp;{{no_nota}}</td>
                     <td>&nbsp;{{nama}}</td>
                     <td>&nbsp;{{formatTime tanggal "LL"}}</td>                    
-                    <td>
+                    <td align="center">
                       <form action="/petugas/cetaknota" method="post" target="_blank">
-                        <input type="hidden" name="id_nota" value="{{id_nota}}">
+                        <input type="hidden" name="no_nota" value="{{no_nota}}">
                         <div class="btn-group" role="group" aria-label="Basic example">
                           <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-print"></i></button>
                           <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusPelanggan{{id_nota}}"><i class="fa fa-trash-o"></i></button>
@@ -104,19 +104,19 @@
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Hapus Produk</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">Hapus Nota</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
-                              Hapus pelanggan '{{nama}}' ?
+                              Hapus nota pembelian '{{nama}}' ?
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal <i class="fa fa-times"></i></button>
-                              <form action="/petugas/hapuspelanggan" method="post">
+                              <form action="/petugas/hapusnota" method="post">
                                 <input type="hidden" name="no_nota" value="{{no_nota}}">
-                                <button type="submit" class="btn btn-sm btn-primary">Ya <i class="fa fa-save"></i></button>
+                                <button type="submit" class="btn btn-sm btn-success">Ya <i class="fa fa-check-square-o"></i></button>
                               </form>
                             </div>
                           </div>

@@ -8,23 +8,57 @@ require('../models/connection').connection();
 const {tampilProduk, tambahProduk} = require('../controllers/produk');
 const {tampilPelanggan} = require('../controllers/pelanggan');
 const {tampilPengguna} = require('../controllers/pengguna');
-// const {tambahProduk} = require('../controllers/produk');
+const {tampilNota} = require('../controllers/nota');
+const {tampiljumPelanggan} = require('../controllers/index');
+const {tampiljumTransaksi} = require('../controllers/index');
+const {tampiljumProduk} = require('../controllers/index');
+
+const {tampiljanuari} = require('../controllers/index');
+const {tampilfebruari} = require('../controllers/index');
+const {tampilmaret} = require('../controllers/index');
+const {tampilapril} = require('../controllers/index');
+const {tampilmei} = require('../controllers/index');
+const {tampiljuni} = require('../controllers/index');
+const {tampiljuli} = require('../controllers/index');
+const {tampilagustus} = require('../controllers/index');
+const {tampilseptember} = require('../controllers/index');
+const {tampiloktober} = require('../controllers/index');
+const {tampilnovember} = require('../controllers/index');
+const {tampildesember} = require('../controllers/index');
 
 // untuk akses halaman route
-router.get('/', function(req, res, next) {
+router.get('/', function(request, response, next) {
 
-     if(req.session.loggedin) {
-        // res.send(req.session.level)
-         if (req.session.level == '1'){
-            //  res.send('ok')
-            res.render('admin/index', {layout: false})
-         }else {
-             res.redirect('/')
-         }
-        
+  if(request.session.loggedin) {
+    if (request.session.level == '1'){
+        (tampilDataProdPel = async () => {
+          try {
+            let datajumPelanggan = await tampiljumPelanggan(connection, request, response)
+            let datajumTransaksi = await tampiljumTransaksi(connection, request, response)
+            let datajumProduk = await tampiljumProduk(connection, request, response)
+            let datajanuari = await tampiljanuari(connection, request, response)
+            let datafebruari = await tampilfebruari(connection, request, response)
+            let datamaret = await tampilmaret(connection, request, response)
+            let dataapril = await tampilapril(connection, request, response)
+            let datamei = await tampilmei(connection, request, response)
+            let datajuni = await tampiljuni(connection, request, response)
+            let datajuli = await tampiljuli(connection, request, response)
+            let dataagustus = await tampilagustus(connection, request, response)
+            let dataseptember = await tampilseptember(connection, request, response)
+            let dataoktober = await tampiloktober(connection, request, response)
+            let datanovember = await tampilnovember(connection, request, response)
+            let datadesember = await tampildesember(connection, request, response)
+            response.render('admin/index',{layout: false, data: {datajumPelanggan, datajumTransaksi, datajumProduk, datajanuari, datafebruari, datamaret, dataapril, datamei, datajuni, datajuli, dataagustus, dataseptember, dataoktober, datanovember, datadesember}})
+          } catch (error) {
+            console.log(error)
+          }
+        })()         
     }else {
-        res.redirect('/login')
-    }
+      response.redirect('/')
+    }    
+  }else {
+      response.redirect('/login')
+  }
 
 });
 
@@ -219,42 +253,23 @@ router.post('/hapuspelanggan', function(request, response) {
 // --------------------------------------------------------------------------------------------------------------------------- 
 
 // untuk akses halaman nota
-router.get('/nota', function(req, res, next) {
+router.get('/nota', function(request, response, next) {
 
-  if(req.session.loggedin) {
-     // res.send(req.session.level)
-      if (req.session.level == '1'){
-         //  res.send('ok')
-         res.render('admin/nota', {layout: false})
-      }else {
-          res.redirect('/')
-      }
-     
- }else {
-     res.redirect('/login')
- }
+  if(request.session.loggedin) {
+    if (request.session.level == '1'){
+      tampilNota(connection, request, response).then((dataNota) => {
+          console.log(dataNota)
+          response.render('admin/nota',{layout: false, data: dataNota})
+      }).catch(err => {
+        console.log(err)
+      })         
+    }else {
+      response.redirect('/')
+    }      
+  }else {
+    response.redirect('/login')
+  }
 
-});
-
-router.get('/tambahnota', function(request, response, next) {
-  // connection.query('SELECT * FROM tb_pelanggan WHERE nama LIKE "'+request.body.nama+'"', (error, results, fields) => {
-  //     if (error) {
-  //       throw error;
-  //     }else {
-  //       if ($result->num_rows > 0) {
-  //           $list = array();
-  //           $key=0;
-  //           while($row = $result->fetch_assoc()) {
-  //               $list[$key]['id'] = $row['propinsi_id'];
-  //               $list[$key]['text'] = $row['nama']; 
-  //           $key++;
-  //           }
-  //           echo json_encode($list);
-  //       } else {
-  //           echo "hasil kosong";
-  //       }
-  //     }
-  // })
 });
 
 // --------------------------------------------------------------------------------------------------------------------------- 

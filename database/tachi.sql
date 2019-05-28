@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 23 Bulan Mei 2019 pada 10.41
+-- Waktu pembuatan: 28 Bulan Mei 2019 pada 06.39
 -- Versi server: 10.1.30-MariaDB
 -- Versi PHP: 7.2.2
 
@@ -41,10 +41,32 @@ CREATE TABLE `tbl_detail_nota` (
 --
 
 INSERT INTO `tbl_detail_nota` (`no_nota`, `nama_produk`, `jumlah_beli`, `harga_satuan`, `diskon`) VALUES
-('19051701', 'LPG 12 Kg Baja', 78, 500000, 0),
-('19051701', 'Bright Gas 12 Kg Baja', 67, 500000, 0),
-('19051701', 'LPG 12 Kg Refill', 23, 160000, 0),
-('19051701', 'Bright Gas 12 Kg Refill', 65, 160000, 0);
+('SJS0', 'LPG 12 Kg Baja', 2, 500000, 0),
+('SJS0', 'Bright Gas 12 Kg Baja', 3, 500000, 0),
+('SJS01', 'Bright Gas 12 Kg Refill', 3, 160000, 0),
+('SJS01', 'Bright Gas 5,5 Kg Refill', 5, 75000, 0),
+('SJS02', 'LPG 12 Kg Baja', 2, 500000, 50),
+('SJS02', 'Bright Gas 12 Kg Baja', 2, 500000, 10),
+('SJS03', 'LPG 12 Kg Baja', 34, 500000, 0),
+('SJS03', 'Bright Gas 12 Kg Baja', 5, 500000, 0),
+('SJS04', 'Bright Gas 5,5 Kg Refill', 23, 75000, 0),
+('SJS04', 'LPG 50 Kg Refill', 22, 700000, 0),
+('SJS05', 'LPG 12 Kg Baja', 2, 500000, 0),
+('SJS06', 'Bright Gas 12 Kg Baja', 2, 500000, 0),
+('SJS07', 'LPG 12 Kg Refill', 2, 160000, 0),
+('SJS08', 'Bright Gas 12 Kg Baja', 2, 500000, 0),
+('SJS09', 'Bright Gas 5,5 Kg Baja', 4, 300000, 0),
+('SJS010', 'Bright Gas 12 Kg Refill', 4, 160000, 0),
+('SJS011', 'Bright Gas 5,5 Kg Baja', 4, 300000, 0),
+('SJS012', 'Bright Gas 12 Kg Refill', 4, 160000, 0),
+('SJS013', 'Bright Gas 12 Kg Refill', 4, 160000, 0),
+('SJS014', 'Bright Gas 12 Kg Refill', 4, 160000, 0),
+('SJS015', 'LPG 12 Kg Refill', 4, 160000, 0),
+('SJS016', 'LPG 12 Kg Baja', 2, 500000, 10),
+('SJS016', 'LPG 50 Kg Baja', 2, 1600000, 50),
+('SJS017', 'LPG 12 Kg Refill', 3, 160000, 10),
+('SJS017', 'Bright Gas 12 Kg Refill', 5, 160000, 5),
+('SJS017', 'LPG 50 Kg Baja', 15, 1600000, 10);
 
 -- --------------------------------------------------------
 
@@ -89,8 +111,24 @@ CREATE TABLE `tbl_nota` (
 --
 
 INSERT INTO `tbl_nota` (`id_nota`, `no_nota`, `tanggal`, `id_pelanggan`) VALUES
-(1, '19051701', '2019-05-23', '1'),
-(2, '19051702', '2019-05-24', '4');
+(1, 'SJS0', '2019-05-25', '1'),
+(2, 'SJS01', '2019-05-27', '2'),
+(3, 'SJS02', '2019-05-27', '3'),
+(4, 'SJS03', '2019-05-27', '2'),
+(5, 'SJS04', '2019-05-29', '3'),
+(6, 'SJS05', '2019-01-02', '1'),
+(7, 'SJS06', '2019-02-04', '2'),
+(8, 'SJS07', '2019-03-07', '2'),
+(9, 'SJS08', '2019-04-05', '2'),
+(10, 'SJS09', '2019-06-12', '3'),
+(11, 'SJS010', '2019-07-11', '3'),
+(12, 'SJS011', '2019-08-08', '3'),
+(13, 'SJS012', '2019-09-17', '2'),
+(14, 'SJS013', '2019-10-10', '2'),
+(15, 'SJS014', '2019-11-06', '2'),
+(16, 'SJS015', '2019-12-12', '2'),
+(17, 'SJS016', '2019-05-28', '1'),
+(18, 'SJS017', '2019-05-29', '3');
 
 -- --------------------------------------------------------
 
@@ -186,7 +224,7 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT untuk tabel `tbl_nota`
 --
 ALTER TABLE `tbl_nota`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pelanggan`

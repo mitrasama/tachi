@@ -18,6 +18,7 @@
     "express-handlebars": "*",
     "express-session": "*",
     "express-validator": "*",
+    "handlebars.numeral": "^0.2.0",
     "moment": "^2.24.0",
     "multer": "*",
     "mysql": "*",

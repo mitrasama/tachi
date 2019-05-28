@@ -64,11 +64,11 @@
             <div class="card text-white bg-primary o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
-                  <i class="fa fa-fw fa-comments"></i>
+                  <i class="fa fa-fw fa-users"></i>
                 </div>
-                <div class="mr-3">26 New Messages!</div>
+                <div class="mr-3">{{#each data.datajumPelanggan}}{{jumlahpelanggan}}{{/each}} Pelanggan</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" href="/petugas/pelanggan">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -80,11 +80,11 @@
             <div class="card text-white bg-warning o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
-                  <i class="fa fa-fw fa-list"></i>
+                  <i class="fa fa-fw fa-shopping-cart"></i>
                 </div>
-                <div class="mr-5">11 New Tasks!</div>
+                <div class="mr-5">{{#each data.datajumTransaksi}}{{jumlahtransaksi}}{{/each}} Transaksi</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" href="/petugas/cetak">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -96,11 +96,11 @@
             <div class="card text-white bg-success o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
-                  <i class="fa fa-fw fa-shopping-cart"></i>
+                  <i class="fa fa-fw fa-cubes"></i>
                 </div>
-                <div class="mr-5">123 New Orders!</div>
+                <div class="mr-5">{{#each data.datajumProduk}}{{jumlahproduk}}{{/each}} Produk</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a class="card-footer text-white clearfix small z-1" href="/petugas/produk">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
@@ -114,7 +114,7 @@
                 <div class="card-body-icon">
                   <i class="fa fa-fw fa-life-ring"></i>
                 </div>
-                <div class="mr-5">13 New Tickets!</div>
+                <div class="mr-5">13 Sample !</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
@@ -132,9 +132,9 @@
             <i class="fas fa-chart-area"></i>
             Chart Penjualan</div>
           <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            <canvas id="lineChart"></canvas>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          <div class="card-footer small text-muted"></div>
         </div>
 
       </div>
@@ -179,6 +179,7 @@
     <script src="/js/jquery.dataTables.js"></script>
     <script src="/js/dataTables.bootstrap4.js"></script>
     <script src="/js/datatables-demo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
   <!-- Menu Toggle Script -->
   <script>
@@ -187,6 +188,44 @@
       $("#wrapper").toggleClass("toggled");
     });
   </script>
+
+  <script>
+      //line
+      var ctxL = document.getElementById("lineChart").getContext('2d');
+      var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
+          datasets: [{
+              label: "Jumlah Transaksi",
+              data: [{{#each data.datajanuari}}{{januari}}{{/each}}, 
+                      {{#each data.datafebruari}}{{januari}}{{/each}}, 
+                      {{#each data.datamaret}}{{januari}}{{/each}}, 
+                      {{#each data.dataapril}}{{januari}}{{/each}}, 
+                      {{#each data.datamei}}{{januari}}{{/each}}, 
+                      {{#each data.datajuni}}{{januari}}{{/each}}, 
+                      {{#each data.datajuli}}{{januari}}{{/each}}, 
+                      {{#each data.dataagustus}}{{januari}}{{/each}}, 
+                      {{#each data.dataseptember}}{{januari}}{{/each}}, 
+                      {{#each data.dataoktober}}{{januari}}{{/each}}, 
+                      {{#each data.datanovember}}{{januari}}{{/each}}, 
+                      {{#each data.datadesember}}{{januari}}{{/each}}],
+              backgroundColor: [
+                'rgba(105, 0, 132, .2)',
+              ],
+              borderColor: [
+                'rgba(200, 99, 132, .7)',
+              ],
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true
+        }
+      });
+
+    </script>
 
 </body>
 

@@ -9,6 +9,10 @@
   <meta name="author" content="">
 
   <title>SINOCHI | Sistem Informasi Nota Sochi</title>
+
+  <script>
+    window.print();
+  </script>
   
   <script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/jquery.dataTables.js"></script>
@@ -24,6 +28,15 @@
   <!-- Custom styles for this template -->
   <link href="/css/simple-sidebar.css" rel="stylesheet">
   {{!-- <link href="/css/style.css" rel="stylesheet"> --}}
+  <style>
+    hr.new4 {
+      border: 1px solid black;
+    }
+
+    hr.new1 {
+      border-top: 1px solid black;
+    }
+  </style>
 
 </head>
 
@@ -37,11 +50,29 @@
             <table border="0" cellpadding="10" width="100%">
               <tr>
                 <td><img src="/images/logonota.png" width="250" height="70"></td>
-                <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u><strong>NOTA</strong></u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></td>
+                <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u><strong>NOTA PEMBELIAN</strong></u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></td>
                 <td>
-                  <table>
-                    <tr><td><font size="2">Kepada Yth : ............................</font></td></tr>
-                    <tr><td><font size="2">Alamat : ................................</font></td></tr>
+                  <table border="0" width="100%" cellpadding="0">
+                    <tr>
+                      <td><font size="2"><strong>Kepada Yth</strong></font></td>
+                      <td><font size="2">:</font></td>
+                      <td><font size="2">&nbsp;{{data.[0].nama}}</font></td>
+                    </tr>
+                    <tr>
+                      <td><font size="2"><strong>Alamat</strong></font></td>
+                      <td><font size="2">:</font></td>
+                      <td><font size="2">&nbsp;{{data.[0].alamat}}</font></td>
+                    </tr>
+                    <tr>
+                      <td><font size="2"><strong>No. Nota</strong></font></td>
+                      <td><font size="2">:</font></td>
+                      <td><font size="2">&nbsp;{{data.[0].no_nota}}</font></td>
+                    </tr>
+                    <tr>
+                      <td><font size="2"><strong>Tanggal</strong></font></td>
+                      <td><font size="2">:</font></td>
+                      <td><font size="2">&nbsp;Cilacap, {{formatTime data.[0].tanggal "LL"}}</font></td>
+                    </tr>
                   </table>
                 </td>
               </tr>
@@ -50,35 +81,30 @@
         </tr>
         <tr>
           <td>
-            <table border="0" width="100%">
-              <tr>
-                <td><font size="2">No. Nota : </font></td>
-                <td><font size="2">No. Pol : </font></td>
-                <td><font size="2">Cilacap, </font></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td>
             <table border="0" width="100%" rules="rows">
-              <hr>
+              <hr class="new4">
               <tr align="left">
-                <th><font size="2">&nbsp;&nbsp;&nbsp;Quantity</font></th>
                 <th><font size="2">&nbsp;&nbsp;&nbsp;Nama Barang</font></th>
+                <th><font size="2">&nbsp;&nbsp;&nbsp;Quantity</font></th>
                 <th><font size="2">&nbsp;&nbsp;&nbsp;Harga (Rp.)</font></th>
-                <th><font size="2">&nbsp;&nbsp;&nbsp;Jumlah (Rp.)</font></th>
+                <th><font size="2">&nbsp;&nbsp;&nbsp;Diskon (%)</font></th>
+                <td align="right"><font size="2">&nbsp;&nbsp;&nbsp;<strong>Jumlah (Rp)&nbsp;&nbsp;&nbsp;</strong></font></td>
               </tr>
+              {{#each data}}
               <tr>
-                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp;35</font></td>
-                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp; - Refill Bright Gas 5,5 Kg</font></td>
-                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp; 160.000 </font></td>
-                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp; 25.256.000 </font></td>
+                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp; {{nama_produk}}</font></td>
+                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp;{{jumlah_beli}}</font></td>
+                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp;{{number harga_satuan}}</font></td>
+                <td align="left"><font size="2">&nbsp;&nbsp;&nbsp; {{diskon}} %</font></td>
+                <td align="right"><font size="2">&nbsp;&nbsp;&nbsp; {{number jumlah}} &nbsp;&nbsp;&nbsp;</font></td>
               </tr>
+              {{else}}
+                <h1>Unknown Data</h1>
+              {{/each}}
               <tr>
-                <td colspan="2"></td>
-                <td align="right"><font size="2"><strong>Total Rp. </strong></font></td>
-                <td>&nbsp;&nbsp;&nbsp;<font size="2"><strong>106.586.000</strong></td>
+                <td colspan="3"></td>
+                <td align="right"><font size="2"><strong>Total</strong></font></td>
+                <td align="right">&nbsp;&nbsp;&nbsp;<font size="2"><strong> Rp. {{number total}}&nbsp;&nbsp;&nbsp;</strong></td>
               </tr>
             </table>
           </td>
@@ -108,7 +134,7 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
-              <hr>
+              <hr class="new1">
             </table>
           </td>
         </tr>
