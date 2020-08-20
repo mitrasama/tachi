@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@ttskch/select2-bootstrap4-theme": "^1.2.2",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "*",
     "connect-flash": "*",
     "dotenv": "^7.0.0",
